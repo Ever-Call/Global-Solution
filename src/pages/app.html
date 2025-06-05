@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>App</title>
+        <link rel="stylesheet" href="../css/app.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <a href="../../index.html" class="logo">🚨 AlertaBR</a>
+                <nav class="nav">
+                    <a href="../../index.html">Início</a>
+                    <a href="app.html">App</a>
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html">Cadastrar</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container">
+            <div class="main-content">
+                <div class="form-section">
+                    <h2 class="section-title">📝 Reportar Evento</h2>
+
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label for="eventType">Tipo de Evento:</label>
+                            <select id="eventType" required>
+                                <option value="">Selecione o tipo</option>
+                                <option value="enchente">
+                                    🌊 Enchente/Alagamento
+                                </option>
+                                <option value="deslizamento">
+                                    ⛰️ Deslizamento
+                                </option>
+                                <option value="incendio">🔥 Incêndio</option>
+                                <option value="outros">⚠️ Outros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Localização:</label>
+                            <input
+                                type="text"
+                                id="location"
+                                placeholder="Ex: Rua das Flores, 123 - Bairro Centro"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="severity">Gravidade:</label>
+                            <select id="severity" required>
+                                <option value="">Selecione a gravidade</option>
+                                <option value="baixa">
+                                    🟢 Baixa - Situação sob controle
+                                </option>
+                                <option value="media">
+                                    🟡 Média - Requer atenção
+                                </option>
+                                <option value="alta">
+                                    🔴 Alta - Emergência
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Descrição:</label>
+                            <textarea
+                                id="description"
+                                rows="4"
+                                placeholder="Descreva o que está acontecendo, quando começou, quantas pessoas foram afetadas, etc."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact">Contato (opcional):</label>
+                            <input
+                                type="text"
+                                id="contact"
+                                placeholder="Telefone ou email para contato"
+                            />
+                        </div>
+                        <div class="advanced">+Avançado</div>
+
+                        <button type="submit" class="btn">
+                            🚀 Enviar Relatório
+                        </button>
+                    </form>
+                </div>
+
+                <div class="map-section">
+                    <h2 class="section-title">🗺️ Mapa de Eventos</h2>
+
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="todos">
+                            Todos
+                        </button>
+                        <button class="filter-btn" data-filter="enchente">
+                            Enchentes
+                        </button>
+                        <button class="filter-btn" data-filter="deslizamento">
+                            Deslizamentos
+                        </button>
+                        <button class="filter-btn" data-filter="incendio">
+                            Incêndios
+                        </button>
+                    </div>
+
+                    <div
+                        id="map"
+                        style="
+                            height: 400px;
+                            border-radius: 15px;
+                            overflow: hidden;
+                        "
+                    >
+                        <img src="/src/assets/imgs/map.png" alt="" />
+                    </div>
+
+                    <div class="severity-badges">
+                        <div class="severity-badge severity-low">
+                            🟢 Baixa: <span id="lowCount">0</span>
+                        </div>
+                        <div class="severity-badge severity-medium">
+                            🟡 Média: <span id="mediumCount">3</span>
+                        </div>
+                        <div class="severity-badge severity-high">
+                            🔴 Alta: <span id="highCount">2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-analysis-section">
+                <div class="news-card">
+                    <h2 class="section-title">
+                        📰 Análise de Notícias - Feita por IA
+                    </h2>
+                    <div class="news-controls">
+                        <button
+                            id="refreshNewsBtn"
+                            class="btn"
+                            style="width: auto; padding: 10px 20px"
+                        >
+                            🔄 Atualizar Análise
+                        </button>
+                        <div class="news-status" id="newsStatus">
+                            <span class="status-indicator">⏱️</span>
+                            <span>Última atualização: hoje</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <div id="newsAnalysis" class="news-text">
+                            <div class="news-analysis-content">
+                                <h3>📊 Panorama Atual</h3>
+                                <p>
+                                    Situação estável na maior parte do
+                                    território nacional. Monitoramento
+                                    preventivo ativo em regiões historicamente
+                                    vulneráveis durante período seco.
+                                </p>
+
+                                <div class="news-highlights">
+                                    <div class="highlight-card">
+                                        <div class="highlight-title">
+                                            Estados Monitorados
+                                        </div>
+                                        <div class="highlight-value">
+                                            BA, GO, MT, TO
+                                        </div>
+                                    </div>
+
+                                    <div class="highlight-card">
+                                        <div class="highlight-title">
+                                            Focos de Incêndio
+                                        </div>
+                                        <div class="highlight-value">~180</div>
+                                    </div>
+
+                                    <div class="highlight-card">
+                                        <div class="highlight-title">
+                                            Área Protegida
+                                        </div>
+                                        <div class="highlight-value">
+                                            850.000 ha
+                                        </div>
+                                    </div>
+
+                                    <div class="highlight-card">
+                                        <div class="highlight-title">
+                                            Nível de Risco
+                                        </div>
+                                        <div class="highlight-value">
+                                            Baixo a Médio
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3>🔍 Principais Ocorrências</h3>
+                                <ul>
+                                    <li>
+                                        Período de estiagem reduz riscos de
+                                        enchentes mas aumenta atenção para
+                                        incêndios florestais
+                                    </li>
+                                    <li>
+                                        Bombeiros reforçam patrulhamento em
+                                        áreas de cerrado e mata atlântica
+                                    </li>
+                                    <li>
+                                        Campanhas de conscientização sobre
+                                        prevenção de queimadas em comunidades
+                                        rurais
+                                    </li>
+                                    <li>
+                                        Reservatórios em níveis estáveis, sem
+                                        risco imediato de transbordamento
+                                    </li>
+                                </ul>
+
+                                <h3>⚠️ Recomendações</h3>
+                                <p>
+                                    <strong>Para Cidadãos:</strong> Mantenha-se
+                                    informado através de canais oficiais, evite
+                                    áreas de risco durante chuvas intensas e
+                                    tenha um plano de emergência familiar.
+                                </p>
+
+                                <p>
+                                    <strong>Para Autoridades:</strong> Monitore
+                                    sistemas de alerta, mantenha equipes de
+                                    emergência preparadas e intensifique
+                                    comunicação com comunidades vulneráveis.
+                                </p>
+
+                                <div class="news-sources">
+                                    <strong>Fontes consultadas:</strong> G1,
+                                    Folha de S.Paulo, DefesaCivil.gov.br, INMET,
+                                    CEMADEN <br /><strong
+                                        >Última verificação:</strong
+                                    >
+                                    04/06/2025, 09:00:52
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reports-section">
+                <h2 class="section-title">📋 Relatórios Recentes</h2>
+                <div id="reportsList">
+                    <!-- Exemplos de relatórios -->
+                    <div class="report-card attention">
+                        <div class="report-header">
+                            <div>
+                                <span class="report-type type-enchente"
+                                    >🌊 Enchente</span
+                                >
+                                <span class="user-badge verified"
+                                    >👤 Maria S. ✓</span
+                                >
+                            </div>
+                            <span class="report-time">há 3 horas</span>
+                        </div>
+                        <div class="report-location">
+                            📍 Av. Paulista, 1000 - São Paulo, SP
+                        </div>
+                        <div class="report-description">
+                            Água acumulando rapidamente na via principal.
+                            Trânsito já está sendo desviado. Chuva intensa há 30
+                            minutos.
+                        </div>
+                        <div class="report-actions">
+                            <button class="vote-btn" data-vote="confirma">
+                                👍 Confirmar (31)
+                            </button>
+                            <button class="vote-btn" data-vote="urgente">
+                                🚨 Urgente (47)
+                            </button>
+                            <button class="vote-btn" data-vote="resolvido">
+                                ✅ Resolvido (0)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div>
+                                <span class="report-type type-deslizamento"
+                                    >⛰️ Deslizamento</span
+                                >
+                                <span class="user-badge">👤 João P.</span>
+                            </div>
+                            <span class="report-time">há 1 hora</span>
+                        </div>
+                        <div class="report-location">
+                            📍 Vila Madalena - São Paulo, SP
+                        </div>
+                        <div class="report-description">
+                            Rachaduras aparecendo no muro de contenção após as
+                            chuvas. Moradores estão preocupados.
+                        </div>
+                        <div class="report-actions">
+                            <button class="vote-btn voted" data-vote="confirma">
+                                👍 Confirmar (5)
+                            </button>
+                            <button class="vote-btn" data-vote="urgente">
+                                🚨 Urgente (3)
+                            </button>
+                            <button class="vote-btn" data-vote="resolvido">
+                                ✅ Resolvido (0)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div>
+                                <span class="report-type type-deslizamento"
+                                    >⛰️ Deslizamento</span
+                                >
+                                <span class="user-badge">👤 Ricardo M.</span>
+                            </div>
+                            <span class="report-time">há 2 horas</span>
+                        </div>
+                        <div class="report-location">
+                            📍 R. Eng. Oscar Americano - Morumbi, São Paulo, SP
+                        </div>
+                        <div class="report-description">
+                            Parte do barranco cedeu e atingiu o portão de uma
+                            residência. Defesa Civil foi acionada pelos
+                            vizinhos.
+                        </div>
+                        <div class="report-actions">
+                            <button class="vote-btn voted" data-vote="confirma">
+                                👍 Confirmar (9)
+                            </button>
+                            <button class="vote-btn" data-vote="urgente">
+                                🚨 Urgente (5)
+                            </button>
+                            <button class="vote-btn" data-vote="resolvido">
+                                ✅ Resolvido (0)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div>
+                                <span class="report-type type-enchente"
+                                    >🌊 Enchente</span
+                                >
+                                <span class="user-badge verified"
+                                    >👤 Tatiane M. ✓</span
+                                >
+                            </div>
+                            <span class="report-time">há 25 min</span>
+                        </div>
+                        <div class="report-location">
+                            📍 R. dos Trilhos, 980 - Mooca, São Paulo, SP
+                        </div>
+                        <div class="report-description">
+                            Nível da água subiu até a calçada. Pedestres com
+                            dificuldade de passagem. Comércio local está
+                            fechando as portas.
+                        </div>
+                        <div class="report-actions">
+                            <button class="vote-btn" data-vote="confirma">
+                                👍 Confirmar (10)
+                            </button>
+                            <button class="vote-btn" data-vote="urgente">
+                                🚨 Urgente (4)
+                            </button>
+                            <button class="vote-btn" data-vote="resolvido">
+                                ✅ Resolvido (0)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div>
+                                <span class="report-type type-deslizamento"
+                                    >⛰️ Deslizamento</span
+                                >
+                                <span class="user-badge">👤 Cláudia R.</span>
+                            </div>
+                            <span class="report-time">há 3 horas</span>
+                        </div>
+                        <div class="report-location">
+                            📍 Estr. do M’Boi Mirim - Jardim Ângela, São Paulo,
+                            SP
+                        </div>
+                        <div class="report-description">
+                            Terra invadiu parte da pista após deslizamento.
+                            Apenas uma faixa está liberada para circulação de
+                            veículos.
+                        </div>
+                        <div class="report-actions">
+                            <button class="vote-btn voted" data-vote="confirma">
+                                👍 Confirmar (8)
+                            </button>
+                            <button class="vote-btn" data-vote="urgente">
+                                🚨 Urgente (5)
+                            </button>
+                            <button class="vote-btn" data-vote="resolvido">
+                                ✅ Resolvido (1)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
