@@ -47,7 +47,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url(/src/assets/imgs/bolinhas_transparentes.svg);
+    background: url(../assets/imgs/bolinhas_transparentes.svg);
     animation: float 6s ease-in-out infinite;
     z-index: -1; /* Coloca o fundo atrás de outros elementos */
 }
