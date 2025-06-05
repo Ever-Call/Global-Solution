@@ -101,7 +101,7 @@ body {
 }
 
 /* Hero Section */
-.hero {
+.app {
     background: var(--gradient-primary);
     color: white;
     text-align: center;
@@ -110,7 +110,7 @@ body {
     overflow: hidden;
 }
 
-.hero::before {
+.app::before {
     content: "";
     position: absolute;
     top: 0;
@@ -131,25 +131,25 @@ body {
     }
 }
 
-.hero-content {
+.app-content {
     position: relative;
     z-index: 2;
     animation: fadeInUp 1s ease;
 }
 
-.hero h1 {
+.app h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
 
-.hero-subtitle {
+.app-subtitle {
     font-size: 1.3rem;
     margin-bottom: 2rem;
     opacity: 0.9;
 }
 
-.cta-button {
+.app-button {
     display: inline-block;
     background: var(--bg-white);
     color: var(--primary-color);
@@ -161,7 +161,7 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-.cta-button:hover {
+.app-button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
